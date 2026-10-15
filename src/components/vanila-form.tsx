@@ -34,6 +34,7 @@ const initialState: FormData = {
 
 const VanilaForm = () => {
   const [data, setData] = useState(initialState);
+ 
 
   // const handleFullName = (e: React.ChangeEvent<HTMLInputElement>) => {
   //   const {name, value} = e.target;
@@ -42,7 +43,6 @@ const VanilaForm = () => {
   //       {...prevState, [name]: value}
   //     )
   //   })
-
   // }
 
   const handleChange = (
@@ -51,32 +51,31 @@ const VanilaForm = () => {
     >,
   ) => {
     const { name, value, type } = e.target;
-    
+
     setData((prevState) => {
       return { ...prevState, [name]: value };
     });
   };
 
-  // const handleCheckbox = (e: React.ChangeEvent<HTMLInputElement>) => {
-  //   const {checked, value, name } = e.target;
-  //   setData((prevData) => {
-  //     return {
-  //       ...prevData,
-  //       [name]: checked
-  //         ? [...prevData.areaOfExpertise, value]
-  //         : prevData.areaOfExpertise.filter((exp) => exp !== value),
-  //     };
-  //   });
-  // };
-
-  const handleCheckbox = (e : React.ChangeEvent<HTMLInputElement>) => {
-    const {checked, value, name} = e.target;
+  const handleCheckbox = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { checked, value, name } = e.target;
     setData((prevState) => {
-      return { ...prevState, [name] : checked ? [...prevState.areaOfExpertise, value] : [...prevState.areaOfExpertise.filter((expertise) => expertise !== value)]}
-    })
-  }
+      return {
+        ...prevState,
+        [name]: checked
+          ? [...prevState.areaOfExpertise, value]
+          : [
+              ...prevState.areaOfExpertise.filter(
+                (expertise) => expertise !== value,
+              ),
+            ],
+      };
+    });
+  };
 
   const handleSubmit = (e: any) => {
+    const newErrors = {};
+    if(data.fullName.trim())
     e.preventDefault();
     console.log(data);
   };
